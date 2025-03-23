@@ -4,7 +4,7 @@ from langchain_openai import ChatOpenAI
 
 from eaia.schemas import State, ReWriteEmail
 
-from eaia.main.config import get_config
+from eaia.main.config.config import get_config
 
 
 rewrite_prompt = """You job is to rewrite an email draft to sound more like {name}.

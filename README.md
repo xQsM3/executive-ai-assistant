@@ -69,7 +69,8 @@ See [this section](#run-in-production--langgraph-cloud-) for instructions on how
 
 1. Install development server `pip install -U "langgraph-cli[inmem]"`
 2. Run development server `langgraph dev`
-
+3. or in watchmode:
+uvx --refresh --from "langgraph-cli[inmem]"  --with-editable . --python 3.11 langgraph dev
 ### Ingest Emails Locally
 
 Let's now kick off an ingest job to ingest some emails and run them through our local EAIA.

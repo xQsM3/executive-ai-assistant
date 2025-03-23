@@ -16,8 +16,7 @@ from email.mime.text import MIMEText
 import email.utils
 
 from langchain_core.tools import tool
-from langchain_core.pydantic_v1 import BaseModel, Field
-
+from pydantic import BaseModel, Field
 from eaia.schemas import EmailData
 
 logger = logging.getLogger(__name__)
@@ -266,7 +265,7 @@ def fetch_group_emails(
     logger.info(f"Found {count} emails.")
 
 
-def mark_as_read(
+def mark_as_done(
     message_id,
     gmail_token: str | None = None,
     gmail_secret: str | None = None,

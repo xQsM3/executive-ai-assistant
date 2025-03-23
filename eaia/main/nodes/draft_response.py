@@ -14,7 +14,7 @@ from eaia.schemas import (
     Ignore,
     email_template,
 )
-from eaia.main.config import get_config
+from eaia.main.config.config import get_config
 
 EMAIL_WRITING_INSTRUCTIONS = """You are {full_name}'s executive assistant. You are a top-notch executive assistant who cares about {name} performing as well as possible.
 
@@ -34,7 +34,7 @@ You can get this information by calling `Question`. Again - do not, under any ci
 If people ask {name} if he can attend some event or meet with them, do not agree to do so unless he has explicitly okayed it!
 
 Remember, if you don't have enough information to respond, you can ask {name} for more information. Use the `Question` tool for this.
-Never just make things up! So if you do not know something, or don't know what {name} would prefer, don't hesitate to ask him.
+Never just make things up! So if you do not know something, or don't know what {name} would prefer, don't hesitate to ask them.
 Never use the Question tool to ask {name} when they are free - instead, just ask the MeetingAssistant
 
 # Using the `ResponseEmailDraft` tool
@@ -102,6 +102,8 @@ async def draft_response(state: State, config: RunnableConfig, store: BaseStore)
     namespace = (config["configurable"].get("assistant_id", "default"),)
     key = "schedule_preferences"
     result = await store.aget(namespace, key)
+
+    # get preferences 
     if result and "data" in result.value:
         schedule_preferences = result.value["data"]
     else:
@@ -131,6 +133,8 @@ async def draft_response(state: State, config: RunnableConfig, store: BaseStore)
         full_name=prompt_config["full_name"],
         background=prompt_config["background"],
     )
+
+    # construct message
     input_message = draft_prompt.format(
         instructions=_prompt,
         email=email_template.format(

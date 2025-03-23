@@ -8,7 +8,7 @@ from langgraph.types import interrupt
 from langgraph.store.base import BaseStore
 from typing import TypedDict, Literal, Union, Optional
 from langgraph_sdk import get_client
-from eaia.main.config import get_config
+from eaia.main.config.config import get_config
 
 LGC = get_client()
 

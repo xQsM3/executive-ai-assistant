@@ -9,15 +9,15 @@ from eaia.schemas import (
     State,
     RespondTo,
 )
-from eaia.main.fewshot import get_few_shot_examples
-from eaia.main.config import get_config
+from eaia.main.config.fewshot import get_few_shot_examples
+from eaia.main.config.config import get_config
 
 
 triage_prompt = """You are {full_name}'s executive assistant. You are a top-notch executive assistant who cares about {name} performing as well as possible.
 
 {background}. 
 
-{name} gets lots of emails. Your job is to categorize the below email to see whether is it worth responding to.
+{name} gets lots of emails. Your job is to analyze the below email to see whether is it worth responding to or which other action should be taken.
 
 Emails that are not worth responding to:
 {triage_no}
@@ -25,12 +25,10 @@ Emails that are not worth responding to:
 Emails that are worth responding to:
 {triage_email}
 
-There are also other things that {name} should know about, but don't require an email response. For these, you should notify {name} (using the `notify` response). Examples of this include:
-{triage_notify}
 
-For emails not worth responding to, respond `no`. For something where {name} should respond over email, respond `email`. If it's important to notify {name}, but no email is required, respond `notify`. \
+For emails not worth responding to, respond `no`. For something where {name} should respond over email, respond `email`. 
 
-If unsure, opt to `notify` {name} - you will learn from this in the future.
+If unsure, opt to `email` {name} - you will learn from this in the future.
 
 {fewshotexamples}
 
@@ -41,7 +39,9 @@ To: {to}
 Subject: {subject}
 
 {email_thread}"""
-
+#If it's important to notify {name}, but no email is required, respond `notify`. \
+#There are also other things that {name} should know about, but don't require an email response. For these, you should notify {name} (using the `notify` response). Examples of this include:
+#{triage_notify}
 
 async def triage_input(state: State, config: RunnableConfig, store: BaseStore):
     model = config["configurable"].get("model", "gpt-4o")

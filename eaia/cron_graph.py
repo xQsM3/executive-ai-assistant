@@ -5,7 +5,7 @@ import httpx
 import uuid
 import hashlib
 from langgraph.graph import StateGraph, START, END
-from eaia.main.config import get_config
+from eaia.main.config.config import get_config
 
 client = get_client()
 
