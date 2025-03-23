@@ -1,6 +1,7 @@
 email: ...
 full_name: YOUR_CLIENT 
 name: YOUR_CLIENT
+model: gpt-4o-mini
 background: YOUR_CLIENTs background: no background provided yet. 
 schedule_preferences: By default, unless specified otherwise, you should make meetings 30 minutes long.
 background_preferences: |
